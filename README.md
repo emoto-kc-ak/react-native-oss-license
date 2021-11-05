@@ -4,7 +4,7 @@
 It generates license lists of npm libraries for iOS, Android.  
 This CLI tool allow you to easily generate content of oss-license.
 
-**This is a custom version that introduces a new [`--stop-packages`](#stop-packages) option.**
+**This is a custom version that introduces a new [`--stop-packages`](#--stop-packages) option.**
 
 ## Installation
 `npm i -g https://github.com/emoto-kc-ak/react-native-oss-license.git`
