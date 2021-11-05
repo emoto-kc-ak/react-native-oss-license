@@ -30,7 +30,7 @@
     "glob": "^7.1.5",
     "install": "^0.13.0",
     "path": "^0.12.7",
-    "read-installed": "^4.0.3",
+    "read-installed": "git+https://github.com/emoto-kc-ak/read-installed.git",
     "yaml": "^1.7.2"
   },
   "devDependencies": {
