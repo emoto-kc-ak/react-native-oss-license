@@ -23,6 +23,12 @@ export default class LicenseCommand {
         'skip licenses those not require copyright notice',
         false
       )
+      .option(
+        '--stop-packages <stopPackages>',
+        'stop dependency walk at these packages.' +
+        ' specify semicolon separated package names',
+        ''
+      )
       .version('0.0.1', '--version', 'show current version')
   }
 
@@ -40,7 +46,8 @@ export default class LicenseCommand {
       outputPath: command.outputPath,
       addVersionNumber: command.addVersionNumber,
       onlyDirectDependency: command.onlyDirectDependency,
-      skipNotRequired: command.skipNotRequired
+      skipNotRequired: command.skipNotRequired,
+      stopPackages: command.stopPackages.split(';').map((p: string) => p.trim()) || []
     }
   }
 }

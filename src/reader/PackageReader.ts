@@ -17,7 +17,11 @@ export default function readPackages(cmdOpt: CmdOption): Promise<License[]> {
     const inputPath = '.'
     readInstalled(
       inputPath,
-      { dev: cmdOpt.includeDevDependencies, depth: cmdOpt.depth },
+      {
+        dev: cmdOpt.includeDevDependencies,
+        depth: cmdOpt.depth,
+        tree: cmdOpt.stopPackages.length > 0 // exact dependency tree is necessary to stop dependency walk
+      },
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       (err: any, pkg: Package) => {
         if (err) {

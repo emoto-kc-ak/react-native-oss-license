@@ -43,10 +43,12 @@ export default function walkDependencies(
     licenseList.add(pkgToLicense(pkg))
   }
 
-  Object.keys(pkg.dependencies).forEach(objKey => {
-    if (!pkg.dependencies) return
-    const dep = pkg.dependencies[objKey]
-    licenseList = walkDependencies(dep, licenseList, opt, directDependencies)
-  })
+  if (opt.stopPackages.indexOf(pkg.name) === -1) {
+    Object.keys(pkg.dependencies).forEach(objKey => {
+      if (!pkg.dependencies) return
+      const dep = pkg.dependencies[objKey]
+      licenseList = walkDependencies(dep, licenseList, opt, directDependencies)
+    })
+  }
   return licenseList
 }
