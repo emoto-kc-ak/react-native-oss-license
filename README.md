@@ -7,7 +7,9 @@ This CLI tool allow you to easily generate content of oss-license.
 **This is a custom version that introduces a new [`--stop-packages`](#--stop-packages) option.**
 
 ## Installation
-`npm i -g https://github.com/emoto-kc-ak/react-native-oss-license.git`
+```sh
+npm i -g https://github.com/emoto-kc-ak/react-native-oss-license.git
+```
 
 ## [Sample App](https://github.com/k-tomoyasu/react-native-oss-license/tree/master/sample/) 
 
