@@ -4,8 +4,10 @@
 It generates license lists of npm libraries for iOS, Android.  
 This CLI tool allow you to easily generate content of oss-license.
 
+**This is a custom version that introduces a new [`--stop-packages`](#stop-packages) option.**
+
 ## Installation
-`npm i -g react-native-oss-license`
+`npm i -g https://github.com/emoto-kc-ak/react-native-oss-license.git`
 
 ## [Sample App](https://github.com/k-tomoyasu/react-native-oss-license/tree/master/sample/) 
 
@@ -40,20 +42,40 @@ and output stdout `withLibraries("package_name_A", "package_name_B" ...)` that p
 Usage: react-native-oss-license [options]
 
 Options:
-  -f, --format <format>       require output format. options:[settings-bundle,license-tools-plugin,about-libraries]
-  --dev                       include devDependencies (default: false)
-  --depth <depth>             dependencies depth (default: null)
-  --output-path <outputPath>  specify path where output file (default: "default path")
-  --json                      output json to stdout (default: false)
-  --add-version-number        write library version number (default: false)
-  --only-direct-dependency    output only dependencies you write packages.json. (default: false)
-  --skip-not-required         skip licenses those not require copyright notice (default: false)
-  --version                   show current version
-  -h, --help                  output usage information
+  -f, --format <format>           output format.
+                                  options:[settings-bundle,license-tools-plugin,about-libraries]
+  --dev                           include devDependencies (default: false)
+  --depth <depth>                 dependencies depth (default: null)
+  --output-path <outputPath>      specify path where output file
+  --json                          output json to stdout (default: false)
+  --add-version-number            write library version number (default: false)
+  --only-direct-dependency        output only dependencies you write
+                                  packages.json. (default: false)
+  --skip-not-required             skip licenses those not require copyright
+                                  notice (default: false)
+  --stop-packages <stopPackages>  stop dependency walk at these packages.
+                                  specify semicolon separated package names
+                                  (default: "")
+  --version                       show current version
+  -h, --help                      output usage information
 
 > react-native-oss-license --format settings-bundle
 output settings-bundle format to 'ios/com.k-tomoyasu.react-native-oss-license.Output'
 ```
+
+#### --stop-packages
+
+Some packages include development packages in their dependencies; e.g., [expo](https://github.com/expo/expo/tree/master/packages/expo), [react-native](https://github.com/facebook/react-native).
+`react-native-oss-license` outputs hundreds of unnecessary entries in a license list, if these packages exist in your dependency tree.
+It is insane, we do not want to list licenses of software involved only during development.
+The `--stop-packages` comes into play when you have package(s) that you want to stop further dependency walk at.
+The following example, stops dependency walk at `expo` and `react-native`,
+
+```sh
+react-native-oss-license --stop-packages 'expo;react-native'
+```
+
+A drawback is that you may have to include, in your `package.json`, some dependencies from those specified to the `--stop-packages` option.
 
 ## screen-shots
 ### iOS
