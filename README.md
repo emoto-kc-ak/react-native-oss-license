@@ -69,7 +69,7 @@ Some packages include development packages in their dependencies; e.g., [expo](h
 `react-native-oss-license` outputs hundreds of unnecessary entries in a license list, if these packages exist in your dependency tree.
 It is insane, we do not want to list licenses of software involved only during development.
 The `--stop-packages` comes into play when you have package(s) that you want to stop further dependency walk at.
-The following example, stops dependency walk at `expo` and `react-native`,
+The following example stops dependency walk at `expo` and `react-native`,
 
 ```sh
 react-native-oss-license --stop-packages 'expo;react-native'
