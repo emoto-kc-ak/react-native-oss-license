@@ -4,7 +4,9 @@
 It generates license lists of npm libraries for iOS, Android.  
 This CLI tool allow you to easily generate content of oss-license.
 
-**This is a custom version that introduces a new [`--stop-packages`](#--stop-packages) option.**
+This is **a custom version** with the following features,
+- [`--stop-packages`](#--stop-packages) option
+- Support of [`AboutLibraries`](#aboutlibraries) version 8.x
 
 ## Installation
 ```sh
@@ -33,9 +35,13 @@ It generate license list in YAML format.
 
 #### AboutLibraries
 [AboutLibraries](https://github.com/mikepenz/AboutLibraries) provides fragment/activity that show license list.  
-`react-native-oss-license` generate string resource xml `AboutLibraries` use.  
+`react-native-oss-license` generate string resource xml `AboutLibraries` use.
 Run `react-native-oss-license --format about-libraries`, output strings.xml that you can put into `res/values/`.  
 and output stdout `withLibraries("package_name_A", "package_name_B" ...)` that pass to method `withLibraries`.
+
+You have to combine this format with `AboutLibraries` version 8.x or higher (I have tested with 8.9.4).
+All you need to do is to copy the output to your `strings.xml` resource, and `withLibraries` is no longer necessary.
+You will end up with seeing **duplicate entries if you specify `withLibraries`**.
 
 ### CLI
 ```sh
