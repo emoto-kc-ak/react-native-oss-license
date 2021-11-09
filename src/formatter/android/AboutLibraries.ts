@@ -11,6 +11,11 @@ export default class AboutLibraries implements Formatter {
     let licenseContent = ''
     const libraryNameList: string[] = []
     licenses.forEach(license => {
+      const authorName = license.authorName
+        .replace(/'/g, "\\'")
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
       const libraryName = (this.opt.addVersionNumber
         ? `${license.libraryName}_${license.version}`
         : license.libraryName
@@ -29,8 +34,8 @@ export default class AboutLibraries implements Formatter {
         .replace(/>/g, '&gt;')
       const libraryDetail = `
 <!-- ${license.libraryName} -->
-<string name="define_int_${libraryName}">year;owner</string>
-<string name="library_${libraryName}_author">${license.authorName}</string>
+<string name="define_plu_${libraryName}">year;owner</string>
+<string name="library_${libraryName}_author">${authorName}</string>
 <string name="library_${libraryName}_libraryName">${license.libraryName}</string>
 <string name="library_${libraryName}_libraryVersion">${license.version}</string>
 <string name="library_${libraryName}_libraryDescription">${description}</string>
@@ -39,7 +44,7 @@ export default class AboutLibraries implements Formatter {
 <string name="library_${libraryName}_repositoryLink">${license.repositoryUrl}</string>
 <!-- Custom variables section -->
 <string name="library_${libraryName}_year"></string>
-<string name="library_${libraryName}_owner"></string>`
+<string name="library_${libraryName}_owner">${authorName}</string>`
 
       licenseContent +=
         libraryDetail + this.getLicenseDetail(libraryName, license)
@@ -72,8 +77,11 @@ export default class AboutLibraries implements Formatter {
     if (installedLicense) {
       return `\n<string name="library_${libraryName}_licenseId">${licenseName}</string>`
     }
+    // license content may contain invalid characters for strings.xml.
+    // &, <, and > have already been replaced.
+    const licenseContent = license.licenseContent.replace(/'/g, "\\'")
     return `
-<string name="library_${libraryName}_licenseContent">${license.licenseContent}</string>
+<string name="library_${libraryName}_licenseContent">${licenseContent}</string>
 <string name="library_${libraryName}_licenseVersion">${licenseName}</string>
 `
   }
